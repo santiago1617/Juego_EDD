@@ -84,7 +84,24 @@ public class CircleLinkedList<E> implements List<E> {
 
     @Override
     public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Node node=last.getNext();
+        if(!this.isEmpty()){
+            if(last.getNext()==null){
+                last=null;
+                size--;
+            }
+            else if(last.getNext()!=null){
+                last.getNext().getNext().setPrevious(last);
+                last.setNext(last.getNext().getNext());
+                if(last.getNext()==last){
+                    last.setNext(null);
+                    last.setPrevious(null);
+                }
+                size--;
+                
+            }
+        }
+        return (E)node.getContenido();
     }
 
     @Override
@@ -94,7 +111,7 @@ public class CircleLinkedList<E> implements List<E> {
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return size;
     }
 
     @Override
@@ -104,7 +121,8 @@ public class CircleLinkedList<E> implements List<E> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         last=null;
+         size=0;
     }
 
 }
