@@ -14,15 +14,18 @@ import java.util.Objects;
 public class Node<E> {
     private  E contenido;
     private   Node<E> next;
+    private Node<E> previous;
 
     public Node(E contenido){
     this.contenido=contenido;
     this.next=null;
+    this.previous=null;
     
     }
     public Node(){
         this.contenido=null;
         this.next=null;
+        this.previous=null;
     }
     
     
@@ -42,27 +45,14 @@ public class Node<E> {
         this.next = next;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Node<?> other = (Node<?>) obj;
-        if (!Objects.equals(this.contenido, other.contenido)) {
-            return false;
-        }
-        if (!Objects.equals(this.next, other.next)) {
-            return false;
-        }
-        return true;
+    public Node<E> getPrevious() {
+        return previous;
     }
+
+    public void setPrevious(Node<E> previous) {
+        this.previous = previous;
+    }
+
     
     
 }

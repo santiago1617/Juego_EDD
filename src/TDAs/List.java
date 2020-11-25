@@ -18,16 +18,7 @@ public interface List<E> {
 
     public void clear();
     
-    //Cuestionable
-    public void add(int index, E element); // inserta element en la posición index
-
-    public E remove(int index); // remueve y retorna el elemento en la posición index
-
-    public E get(int index); // retorna el elemento ubicado en la posición index
-
-    public E set(int index, E element); // setea el element en la posición index
     
-    public String toString(); // retorna una cadena de caracteres representando los elementos que la lista contiene
     /*********************************************************************************************/
     /*** Métodos que deben ser implementados en las clases ArrayList y LinkedList como TAREA ****/
     /*********************************************************************************************/
