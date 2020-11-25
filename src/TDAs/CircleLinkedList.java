@@ -30,12 +30,12 @@ public class CircleLinkedList<E> implements List<E> {
                 size++;
                 return true;
             } else if (!this.isEmpty()) {
-                if (last.getNext() != null) {
+                if (last.getNext() != null) {//Si el Next de last no es null agregamos normalmente
                     node.setNext(last.getNext());
                     node.setPrevious(last);
                     last.getNext().setPrevious(node);
 
-                } else if (last.getNext() == null) {
+                } else if (last.getNext() == null) {//Si el Next de last es null node apuntara a last y viceversa
                     node.setNext(last);
                     node.setPrevious(last);
                     last.setPrevious(node);
@@ -60,20 +60,23 @@ public class CircleLinkedList<E> implements List<E> {
                 size++;
                 return true;
             } else if (!this.isEmpty()) {
+                //Si el Next de last no es null el Next de last sera nodo y en previous de none sera last 
+                //aplicando tambien que el antiguo Next de last su previous sea none ahora 
                 if (last.getNext() != null) {
 
-                    node.setNext(last);
-                    node.setPrevious(last.getNext());
-                    last.getNext().setNext(node);
-                    last.setPrevious(node);
+                    node.setNext(last.getNext());
+                    node.setPrevious(last);
+                    last.getNext().setPrevious(node);
+                    last.setNext(node);
 
-                } else if (last.getNext() == null) {
+                } else if (last.getNext() == null) {//Si el Next de last es null node apuntara a last y viceversa
                     node.setNext(last);
                     node.setPrevious(last);
                     last.setPrevious(node);
                     last.setNext(node);
 
                 }
+                //Definimos a node como el ultimo
                 last = node;
                 size++;
                 return true;
@@ -86,13 +89,16 @@ public class CircleLinkedList<E> implements List<E> {
     public E removeFirst() {
         Node node=last.getNext();
         if(!this.isEmpty()){
+            //Si esque el unico valor es last ya que al hacer addFirst le damos valor a last
             if(last.getNext()==null){
                 last=null;
                 size--;
             }
+            //Si esque hay 2 o mas elementos en la lista
             else if(last.getNext()!=null){
                 last.getNext().getNext().setPrevious(last);
                 last.setNext(last.getNext().getNext());
+                //Si esque last se apunta a si mismo
                 if(last.getNext()==last){
                     last.setNext(null);
                     last.setPrevious(null);
