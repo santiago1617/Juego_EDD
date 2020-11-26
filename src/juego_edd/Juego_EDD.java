@@ -5,6 +5,8 @@
  */
 package juego_edd;
 
+import TDAs.CircleLinkedList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,24 +20,18 @@ import javafx.stage.Stage;
  * @author tagoa
  */
 public class Juego_EDD extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
+        btn.setOnAction(e -> System.out.println("Hello World!"));
+
         StackPane root = new StackPane();
         root.getChildren().add(btn);
-        
+
         Scene scene = new Scene(root, 300, 250);
-        
+
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -45,7 +41,17 @@ public class Juego_EDD extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        
+        CircleLinkedList<String> test = new CircleLinkedList<>();
+
+        test.addLast("b");
+                System.out.println(test.removeFirst());
+        test.addFirst("k");                
+                //System.out.println("asd");
+                System.out.println(test.removeLast());
+                //test.addFirst("k");
+        System.out.println(test.isEmpty());
+        //launch(args);
     }
-    
+
 }
