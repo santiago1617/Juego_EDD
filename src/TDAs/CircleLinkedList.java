@@ -5,6 +5,8 @@
  */
 package TDAs;
 
+import java.util.Iterator;
+
 /**
  *
  * @author tagoa
@@ -12,6 +14,7 @@ package TDAs;
 public class CircleLinkedList<E> implements List<E> {
 
     private Node<E> last;
+    
     private int size;
 
     public CircleLinkedList() {
@@ -22,29 +25,32 @@ public class CircleLinkedList<E> implements List<E> {
     @Override
     public boolean addFirst(E e) {
         Node node = new Node(e);
-        if (e == null) {
-            return false;
-        } else {
-            if (this.isEmpty()) {
-                last = node;
+         
+        if (e!=null){
+            if(this.isEmpty()){//Si esta vacio lo relaciono con el mismo
+                last=node;
                 size++;
+                last.setNext(last);
+                last.setPrevious(last);
                 return true;
-            } else if (!this.isEmpty()) {
-                if (last.getNext() != null) {//Si el Next de last no es null agregamos normalmente
-                    node.setNext(last.getNext());
+            }
+            else{
+                if(last.getNext()==last){//Si esta relacionado con el mismo quito esa relacion y lo relaciono con el nuevo nodo
                     node.setPrevious(last);
-                    last.getNext().setPrevious(node);
-
-                } else if (last.getNext() == null) {//Si el Next de last es null node apuntara a last y viceversa
                     node.setNext(last);
-                    node.setPrevious(last);
                     last.setPrevious(node);
-
+                }
+                else{
+                    Node temp= last.getNext();
+                    temp.setPrevious(node);
+                    node.setNext(temp);
+                    node.setPrevious(last);
+                    
                 }
                 last.setNext(node);
                 size++;
                 return true;
-            }
+            } 
         }
         return false;
     }
@@ -52,34 +58,34 @@ public class CircleLinkedList<E> implements List<E> {
     @Override
     public boolean addLast(E e) {
         Node node = new Node(e);
-        if (e == null) {
-            return false;
-        } else {
-            if (this.isEmpty()) {
-                last = node;
+        if(e!=null){
+            if(this.isEmpty()){
+                last=node;
+                last.setNext(last);
+                last.setPrevious(last);
                 size++;
                 return true;
-            } else if (!this.isEmpty()) {
-                //Si el Next de last no es null el Next de last sera nodo y en previous de none sera last 
-                //aplicando tambien que el antiguo Next de last su previous sea none ahora 
-                if (last.getNext() != null) {
-
-                    node.setNext(last.getNext());
-                    node.setPrevious(last);
-                    last.getNext().setPrevious(node);
-                    last.setNext(node);
-
-                } else if (last.getNext() == null) {//Si el Next de last es null node apuntara a last y viceversa
+            }
+            else{
+                if(last.getNext()==last){
                     node.setNext(last);
                     node.setPrevious(last);
-                    last.setPrevious(node);
                     last.setNext(node);
-
+                    last.setPrevious(node);
+                    
                 }
-                //Definimos a node como el ultimo
-                last = node;
+                else{
+                     Node temp= last.getNext();
+                     temp.setPrevious(node);
+                     node.setNext(temp);
+                     node.setPrevious(last);
+                     last.setNext(node);
+                     
+                }
+                last=node; 
                 size++;
                 return true;
+                
             }
         }
         return false;
@@ -90,29 +96,63 @@ public class CircleLinkedList<E> implements List<E> {
         Node node=last.getNext();
         if(!this.isEmpty()){
             //Si esque el unico valor es last ya que al hacer addFirst le damos valor a last
-            if(last.getNext()==null){
+            if(last.getNext()==last){
                 last=null;
-                size--;
-            }
-            //Si esque hay 2 o mas elementos en la lista
-            else if(last.getNext()!=null){
-                last.getNext().getNext().setPrevious(last);
-                last.setNext(last.getNext().getNext());
-                //Si esque last se apunta a si mismo
-                if(last.getNext()==last){
-                    last.setNext(null);
-                    last.setPrevious(null);
-                }
-                size--;
                 
             }
+            //Si esque hay 2 o mas elementos en la lista
+            else{
+                last.getNext().getNext().setPrevious(last);
+                last.setNext(last.getNext().getNext());
+                
+            }
+            size--;
+            return (E)node.getContenido();
         }
-        return (E)node.getContenido();
+        return null;
     }
 
     @Override
     public E removeLast() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Node node=last;
+        if(!this.isEmpty()){
+            if(last.getNext()==last){
+                last=null;
+                
+            }
+            else{
+                Node next= last.getNext();
+                Node previous=last.getPrevious();
+                next.setPrevious(previous);
+                previous.setNext(next);
+                last=previous;
+            }
+            size--;
+            return (E)node.getContenido();
+        }
+        return null;
+    }
+    
+    public Iterator<E> iterator() {
+        Iterator<E> it = new Iterator<E>(){
+            private Node<E> p = last;
+            private int cont=0;
+            
+            @Override
+            public boolean hasNext() {
+                return p!= null &&p!=last &&cont!=0;
+            }
+
+            @Override
+            public E next() {
+                E tmp = p.getContenido();
+                p = p.getNext();
+                cont++;
+                return tmp;
+            }
+        };
+        
+        return it;
     }
 
     @Override
@@ -130,5 +170,32 @@ public class CircleLinkedList<E> implements List<E> {
          last=null;
          size=0;
     }
+    public Node<E> getLast(){
+        return last;
+    }
+    public Node<E> getFirst(){
+        if(last!=null){
+            return last.getNext();
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        if(last.getNext()!=null){
+        Node p= last.getNext();
+        boolean verdad=true;
+        while(p!=last){
+            System.out.println(p.getContenido());
+            p=p.getNext();
+        }
+            System.out.println(last.getContenido());
+        }
+        else{
+            System.out.println(last.getContenido());
+        }
+        return null;
+    }
+    
 
 }

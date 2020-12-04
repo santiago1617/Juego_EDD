@@ -5,7 +5,7 @@
  */
 package TDAs;
 
-import java.util.Objects;
+import javafx.geometry.Point2D;
 
 /**
  *
@@ -15,22 +15,26 @@ public class Node<E> {
     private  E contenido;
     private   Node<E> next;
     private Node<E> previous;
-
+    
+    
+    
     public Node(E contenido){
     this.contenido=contenido;
     this.next=null;
     this.previous=null;
     
     }
+    
     public Node(){
         this.contenido=null;
         this.next=null;
         this.previous=null;
+        
     }
     
     
     public E getContenido() {
-        return contenido;
+        return (E)contenido;
     }
 
     public void setContenido(E contenido) {
@@ -52,6 +56,7 @@ public class Node<E> {
     public void setPrevious(Node<E> previous) {
         this.previous = previous;
     }
+
 
     
     
