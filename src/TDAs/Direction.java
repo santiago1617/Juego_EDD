@@ -10,5 +10,5 @@ package TDAs;
  * @author tagoa
  */
 public enum  Direction {
-    VIVO,MUERTO,INMORTAL;
+    HORARIO,ANTIHORARIO;
 }

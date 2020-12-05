@@ -5,18 +5,18 @@
         <group>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/List.java</file>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Animacion/Animacion.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/OpcionesJuego/GamingUtilities.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Recursos/Base/Atacando1.pixil</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/Node.java</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Hilos/HiloSprites.java</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Hilos/HiloAnimacion.java</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Interfaz/Interfaz.java</file>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Animacion/Animation.java</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/Direction.java</file>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/OpcionesJuego/Gaming.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Recursos/Sizes.txt</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/Personaje.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Recursos/Gifs/sharingan.gif</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/OpcionesJuego/Construction.java</file>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/CircleLinkedList.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Recursos/Gifs/Explosion.gif</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/juego_edd/Main.java</file>
             <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/juego_edd/Juego_EDD.java</file>
-            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/TDAs/Estado.java</file>
+            <file>file:/C:/Users/tagoa/Desktop/Juego_Estructura/Juego_EDD/src/Hilos/Hilo1.java</file>
         </group>
     </open-files>
 </project-private>

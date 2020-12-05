@@ -6,8 +6,13 @@
 package OpcionesJuego;
 
 import Animacion.Animation;
+import Hilos.HiloMusica;
+import Interfaz.Interfaz;
 import TDAs.CircleLinkedList;
 import TDAs.Node;
+import java.applet.AudioClip;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -15,7 +20,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -127,7 +135,7 @@ public class Construction {
 //    public Scene sceneMakeInmortal(CircleLinkedList<ImageView> personajes){
 //         
 //    }
-    public void HacerInmortales(CircleLinkedList<ImageView> personajes){
+    public void PoderSerInmortales(CircleLinkedList<ImageView> personajes){
         Node<ImageView> nodo= personajes.getLast();
             int cont=0;
             while(nodo!=personajes.getLast() || cont==0){
@@ -146,8 +154,8 @@ public class Construction {
                 img.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Animation.AnimacionAtacar(img);
-                        //Animation.MatarPersonaje(img);
+                        Animation.HacerInmortal(img);
+                        Animation.MatarPersonaje(img);
                     }
                 }
                 );
@@ -155,4 +163,34 @@ public class Construction {
                 cont++;
             }
     }
+    public void EliminarAcciones(CircleLinkedList<ImageView> personajes){
+        Node<ImageView> nodo= personajes.getLast();
+            int cont=0;
+            while(nodo!=personajes.getLast() || cont==0){
+                ImageView img=nodo.getContenido();
+                img.setOnMouseClicked(event -> System.out.print("evento eliminado"));
+                nodo=nodo.getNext();
+                cont++;
+            }
+    }
+    public static void EliminarMuertos(CircleLinkedList<ImageView> personajes){
+        Node<ImageView> nodo= personajes.getLast();
+            int cont=0;
+            while(nodo!=personajes.getLast() || cont==0){
+                ImageView img=nodo.getContenido();
+                if(img.getId().equals("MUERTO")){
+                    personajes.remove(img);
+                }
+                cont++;
+            }
+            
+    }
+        public void AudioFondo() {
+        AudioClip mensaje = java.applet.Applet.newAudioClip(getClass().getResource("/Recursos/Base/fondo.wav"));
+        HiloMusica hilo= new HiloMusica(mensaje);
+        hilo.start();
+        
+    }
+        
+    
 }

@@ -5,7 +5,8 @@
  */
 package Animacion;
 
-import TDAs.Node;
+import Hilos.HiloAnimacion;
+import java.applet.AudioClip;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Transition;
@@ -19,41 +20,27 @@ import javafx.util.Duration;
  * @author tagoa
  */
 public class Animation {
+    public static void ConvertirMortal(ImageView view) {
 
-//    public static void crearPersonaje(Node person) {
-//        Image img = new Image("/Recursos/Base/Base.png");
-//        ImageView img1 = new ImageView(img);
-//        img1.setOnMouseClicked(event -> {
-//            HacerInmortal(img1);
-//        });
-//
-//        person.setContenido(img1);
-//        System.out.println("Algoooo");
-//
-//    }
+       Image img = new Image("/Recursos/Base/Base.png");
+        HiloAnimacion hilo= new HiloAnimacion(view,img,"VIVO");
+        hilo.start();
+        try {
+            hilo.join();
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Animation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public static void HacerInmortal(ImageView view) {
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        Image img = new Image("/Recursos/Inmortal/Inmortal.png");
-                        view.setImage(img);
-
-                        System.out.println("neeeeeell");
-                    }
-                });
-            }
-        });
-
-        thread.start();
+       Image img = new Image("/Recursos/Inmortal/Inmortal.png");
+        HiloAnimacion hilo= new HiloAnimacion(view,img,"INMORTAL");
+        hilo.start();
         try {
-
-            thread.join();
-            System.out.println("Hilo terminado");
-            System.out.println(thread.isAlive());
+            hilo.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(Animation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,42 +48,18 @@ public class Animation {
     }
 
     public static void MatarPersonaje(ImageView view) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Image img = new Image("/Recursos/Base/Muerto.png");
-                        view.setImage(img);
-
-                        System.out.println("neeeeeell");
-
-                    }
-
-                });
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Animation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        });
-
-        thread.start();
-
+        
+        Image img = new Image("/Recursos/Base/Muerto.png");
+        HiloAnimacion hilo= new HiloAnimacion(view,img,"MUERTO");
+        hilo.start();
         try {
-
-            thread.join();
-            System.out.println("Hilo terminado");
-            System.out.println(thread.isAlive());
+            
+            hilo.join();
+           
         } catch (InterruptedException ex) {
             Logger.getLogger(Animation.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 
     public static void AnimacionAtacar(ImageView view) {
@@ -109,7 +72,7 @@ public class Animation {
 
             @Override
             protected void interpolate(double fraction) {
-                System.out.println("Fraccion: " + fraction);
+                
                 int index = (int) (fraction * (3 - 1));
                 if (index > 0) {
                     Image img2 = new Image("/Recursos/Base/Atacando" + index + ".png");
@@ -141,5 +104,28 @@ public class Animation {
         animation.play();
 
     }
+    
+    public static void AnimacionExplosion(ImageView view) {
+        
+
+        Transition animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(1000)); // total time for animation
+            }
+
+            @Override
+            protected void interpolate(double fraction) {
+                System.out.println("Fraccion: " + fraction);
+                int index = (int) (fraction * (3 - 1));
+                if (index > 0) {
+                    Image img2 = new Image("/Recursos/Gifs/Explosion.gif");
+                    view.setImage(img2);
+                }
+            }
+        };
+        animation.play();
+        
+    }
+ 
 
 }

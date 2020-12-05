@@ -7,7 +7,9 @@ package juego_edd;
 
 import Animacion.Animation;
 import OpcionesJuego.Construction;
+import OpcionesJuego.Gaming;
 import TDAs.CircleLinkedList;
+import TDAs.Direction;
 import TDAs.Node;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,22 +88,23 @@ Construction con= new Construction();
 //         Pane pane= con.CrearCirculoMuerte(20);
         CircleLinkedList<ImageView> persons= con.CrearCirculoMuerteLista(10);
         Pane pane=con.AgregarPane(persons);
-        con.HacerInmortales(persons);
-        con.PrubaAnimacion(persons);
+//        con.HacerInmortales(persons);
+//        con.PrubaAnimacion(persons);
+          Gaming.PoderComenzarMatanza(persons,Direction.HORARIO);
 //         pane.setOnMouseClicked(event-> 
 //                 System.out.println(event.getX()+"-----"+event.getY())
 //         );
-          
-         Node person= new Node(new ImageView());
-         Animation ani= new Animation();
-        
-            
-        
-         
-         Scene scene= new Scene(pane,1000,1000);
-         Stage stage= new Stage();
-         stage.setScene(scene);
-         stage.show();
+          con.AudioFondo();
+//         Node person= new Node(new ImageView());
+//         Animation ani= new Animation();
+//        
+//            
+//        
+//         
+//         Scene scene= new Scene(pane,1000,1000);
+//         Stage stage= new Stage();
+//         stage.setScene(scene);
+//         stage.show();
 //         FadeTransition fade= new FadeTransition();
 //        PathTransition path= new PathTransition();
 //        fade.setDuration(new Duration(300));

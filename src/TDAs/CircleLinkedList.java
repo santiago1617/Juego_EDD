@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class CircleLinkedList<E> implements List<E> {
 
     private Node<E> last;
-    
+
     private int size;
 
     public CircleLinkedList() {
@@ -25,32 +25,30 @@ public class CircleLinkedList<E> implements List<E> {
     @Override
     public boolean addFirst(E e) {
         Node node = new Node(e);
-         
-        if (e!=null){
-            if(this.isEmpty()){//Si esta vacio lo relaciono con el mismo
-                last=node;
+
+        if (e != null) {
+            if (this.isEmpty()) {//Si esta vacio lo relaciono con el mismo
+                last = node;
                 size++;
                 last.setNext(last);
                 last.setPrevious(last);
                 return true;
-            }
-            else{
-                if(last.getNext()==last){//Si esta relacionado con el mismo quito esa relacion y lo relaciono con el nuevo nodo
+            } else {
+                if (last.getNext() == last) {//Si esta relacionado con el mismo quito esa relacion y lo relaciono con el nuevo nodo
                     node.setPrevious(last);
                     node.setNext(last);
                     last.setPrevious(node);
-                }
-                else{
-                    Node temp= last.getNext();
+                } else {
+                    Node temp = last.getNext();
                     temp.setPrevious(node);
                     node.setNext(temp);
                     node.setPrevious(last);
-                    
+
                 }
                 last.setNext(node);
                 size++;
                 return true;
-            } 
+            }
         }
         return false;
     }
@@ -58,34 +56,32 @@ public class CircleLinkedList<E> implements List<E> {
     @Override
     public boolean addLast(E e) {
         Node node = new Node(e);
-        if(e!=null){
-            if(this.isEmpty()){
-                last=node;
+        if (e != null) {
+            if (this.isEmpty()) {
+                last = node;
                 last.setNext(last);
                 last.setPrevious(last);
                 size++;
                 return true;
-            }
-            else{
-                if(last.getNext()==last){
+            } else {
+                if (last.getNext() == last) {
                     node.setNext(last);
                     node.setPrevious(last);
                     last.setNext(node);
                     last.setPrevious(node);
-                    
+
+                } else {
+                    Node temp = last.getNext();
+                    temp.setPrevious(node);
+                    node.setNext(temp);
+                    node.setPrevious(last);
+                    last.setNext(node);
+
                 }
-                else{
-                     Node temp= last.getNext();
-                     temp.setPrevious(node);
-                     node.setNext(temp);
-                     node.setPrevious(last);
-                     last.setNext(node);
-                     
-                }
-                last=node; 
+                last = node;
                 size++;
                 return true;
-                
+
             }
         }
         return false;
@@ -93,54 +89,52 @@ public class CircleLinkedList<E> implements List<E> {
 
     @Override
     public E removeFirst() {
-        Node node=last.getNext();
-        if(!this.isEmpty()){
+        Node node = last.getNext();
+        if (!this.isEmpty()) {
             //Si esque el unico valor es last ya que al hacer addFirst le damos valor a last
-            if(last.getNext()==last){
-                last=null;
-                
-            }
-            //Si esque hay 2 o mas elementos en la lista
-            else{
+            if (last.getNext() == last) {
+                last = null;
+
+            } //Si esque hay 2 o mas elementos en la lista
+            else {
                 last.getNext().getNext().setPrevious(last);
                 last.setNext(last.getNext().getNext());
-                
+
             }
             size--;
-            return (E)node.getContenido();
+            return (E) node.getContenido();
         }
         return null;
     }
 
     @Override
     public E removeLast() {
-        Node node=last;
-        if(!this.isEmpty()){
-            if(last.getNext()==last){
-                last=null;
-                
-            }
-            else{
-                Node next= last.getNext();
-                Node previous=last.getPrevious();
+        Node node = last;
+        if (!this.isEmpty()) {
+            if (last.getNext() == last) {
+                last = null;
+
+            } else {
+                Node next = last.getNext();
+                Node previous = last.getPrevious();
                 next.setPrevious(previous);
                 previous.setNext(next);
-                last=previous;
+                last = previous;
             }
             size--;
-            return (E)node.getContenido();
+            return (E) node.getContenido();
         }
         return null;
     }
-    
+
     public Iterator<E> iterator() {
-        Iterator<E> it = new Iterator<E>(){
+        Iterator<E> it = new Iterator<E>() {
             private Node<E> p = last;
-            private int cont=0;
-            
+            private int cont = 0;
+
             @Override
             public boolean hasNext() {
-                return p!= null &&p!=last &&cont!=0;
+                return p != null && p != last && cont != 0;
             }
 
             @Override
@@ -151,7 +145,7 @@ public class CircleLinkedList<E> implements List<E> {
                 return tmp;
             }
         };
-        
+
         return it;
     }
 
@@ -167,35 +161,71 @@ public class CircleLinkedList<E> implements List<E> {
 
     @Override
     public void clear() {
-         last=null;
-         size=0;
+        last = null;
+        size = 0;
     }
-    public Node<E> getLast(){
+
+    public Node<E> getLast() {
         return last;
     }
-    public Node<E> getFirst(){
-        if(last!=null){
+
+    public Node<E> getFirst() {
+        if (last != null) {
             return last.getNext();
         }
         return null;
     }
 
-    @Override
-    public String toString() {
-        if(last.getNext()!=null){
-        Node p= last.getNext();
-        boolean verdad=true;
-        while(p!=last){
-            System.out.println(p.getContenido());
-            p=p.getNext();
-        }
-            System.out.println(last.getContenido());
-        }
-        else{
-            System.out.println(last.getContenido());
+    public Node<E> SearchNode(E element) {
+        if (!this.isEmpty()) {
+            if (element.equals(last.getContenido())) {
+                return last;
+            } else {
+                Node<E> p = last.getNext();
+                while (p != last) {
+                    if (element.equals(p.getContenido())) {
+                        return p;
+                    }
+                    p = p.getNext();
+                }
+            }
         }
         return null;
     }
-    
 
-}
+    public void remove(E element) {
+        if (!this.isEmpty()) {
+            
+                Node<E> p = last.getNext();
+                while (p != last) {
+                    if (element.equals(p.getContenido())) {
+                        Node<E> next=p.getNext();
+                        Node<E> previous=p.getPrevious();
+                        next.setPrevious(previous);
+                        previous.setNext(next);
+                    }
+                    p = p.getNext();
+                }
+            
+        }
+    }
+
+        @Override
+        public String toString
+        
+            () {
+        if (last.getNext() != null) {
+                Node p = last.getNext();
+                boolean verdad = true;
+                while (p != last) {
+                    System.out.println(p.getContenido());
+                    p = p.getNext();
+                }
+                System.out.println(last.getContenido());
+            } else {
+                System.out.println(last.getContenido());
+            }
+            return null;
+        }
+
+    }
